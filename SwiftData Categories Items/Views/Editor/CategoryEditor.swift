@@ -9,41 +9,28 @@ import SwiftUI
 import SwiftData
 
 struct CategoryEditor: View {
-    // optional pass a category for editing
-//    var category: Category?
-    @Bindable var category: Category
-    /// tell the view if the passed category is new or for editing
-    let isNew: Bool
+    // optional pass a category (for editing)
+    var category: Category?
     
     @Environment(\.modelContext) private var modelContext
     // For exiting
     @Environment(\.dismiss) private var dismiss
     
-    // check if the view is adding or editing
-    private var editorTitle: String {
-        /// check if a category was passed
-//        category == nil ? "Add category" : "Edit category"
-        /// check if the passed category is the new empty
-        category.name == "" ? "Add category" : "Edit category"
-//        isNew == true ? "Add category" : "Edit category"
-    }
-    
-    private func save() {
-        if isNew == true {
-            /// A new category was created but not yet saved, so make it now
-            let newCategory = Category(name: name, iconName: iconName)
-            modelContext.insert(newCategory)
-            
-        } else {
-            // existing category was passed
-            category.name = name
-            category.iconName = iconName
-        }
-    }
-    
     // Now for all values of the model
     @State private var name = ""
     @State private var iconName = ""
+    
+    private func save() {
+        if category == nil {
+            // no category was passed
+            let newCategory = Category(name: name, iconName: iconName)
+            modelContext.insert(newCategory)
+        } else if category != nil {
+            // existing category was passed
+            category!.name = name
+            category!.iconName = iconName
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -57,7 +44,7 @@ struct CategoryEditor: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(editorTitle)
+                    Text(category == nil ? "New category" : "Edit category")
                 }
                 
                 // save
@@ -84,16 +71,11 @@ struct CategoryEditor: View {
             } // toolbar
             /// check if a existing category was passed
             .onAppear {
-//                if let category {
-//                    // asign its values to the local variables
+                if let category {
+                    // asign its values to the local variables
                     name = category.name
                     iconName = category.iconName
-//                }
-//                if category.name == "" {
-//                    isNew = true
-//                } else {
-//                    isNew = false
-//                }
+                }
             }
             #if os(macOS)
             .padding()
@@ -102,13 +84,11 @@ struct CategoryEditor: View {
     }
 }
 
-#Preview("Add category") {
-//    CategoryEditor(category: nil)
-    @Previewable var category = Category(name: "")
-    CategoryEditor(category: category, isNew: true)
+#Preview("Add") {
+    CategoryEditor()
 }
 
 #Preview("Edit category") {
     @Previewable var category = Category(name: "Test")
-    CategoryEditor(category: category, isNew: false)
+    CategoryEditor(category: category)
 }

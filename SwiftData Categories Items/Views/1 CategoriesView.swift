@@ -77,13 +77,11 @@ struct CategoriesView: View {
         } // toolbar
         // Add new category
         .sheet(isPresented: $showSheetAddNewCategory) {
-            // set default values
-            let newCategory = Category(name: "", iconName: "folder")
-            CategoryEditor(category: newCategory, isNew: true)
+            CategoryEditor()
         }
         // Edit category
         .sheet(item: $editCategory) { category in
-            CategoryEditor(category: category, isNew: false)
+            CategoryEditor(category: category)
         }
         /// check if deleteCategory exists to show its name
         .alert(

@@ -80,17 +80,11 @@ struct ItemsView: View {
             } // toolbar
             // Add new item
             .sheet(isPresented: $showSheetAddItem) {
-                let newItem = Item(
-                    name: "",
-                    category: Category(
-                        id: categoryId ?? UUID(),
-                        name: title
-                    ))
-                ItemEditor(item: newItem, isNew: true)
+                ItemEditor()
             }
             // Edit item
             .sheet(item: $editItem) { item in
-                ItemEditor(item: item, isNew: false)
+                ItemEditor(item: item, categoryId: categoryId)
             }
             /// check if deleteItem exists to show its name
             .alert("Delete \(deleteItem != nil ? deleteItem!.name : "Item")?", isPresented: $showAlertDeletingItem) {

@@ -9,19 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct ItemEditor: View {
-    // pass item to this view
-    @Bindable var item: Item
-    /// tell the view if the passed category is new or for editing
-    let isNew: Bool
+    // optinal pass an item (for editing)
+    var item: Item?
+    // And also the id of it's category (when assigned)
+    var categoryId: UUID?
     
     @Environment(\.modelContext) private var modelContext
     // For exiting
     @Environment(\.dismiss) private var dismiss
-    
-    // check if the view is adding or editing
-    private var editorTitle: String {
-        item.name == "" ? "Add item" : "Edit item"
-    }
     
     // for adding a new category
     @State private var showSheetAddNewCategory = false
@@ -41,15 +36,14 @@ struct ItemEditor: View {
     }
 
     private func save() {
-        if isNew == true {
-            /// A new category was created but not yet saved, so make it now
+        // no item was passed
+        if item == nil {
             let newItem = Item(name: name, category: category)
             modelContext.insert(newItem)
-            
-        } else {
+        } else if item != nil {
             // existing category was passed
-            item.name = name
-            item.category = category
+            item!.name = name
+            item!.category = category
         }
     }
     
@@ -88,7 +82,7 @@ struct ItemEditor: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(editorTitle)
+                    Text(item == nil ? "New" : "Edit")
                 }
                 
                 // save
@@ -112,26 +106,27 @@ struct ItemEditor: View {
                     }
                 }
             } // toolbar
-            // check if a existing category was passed
+            /// check if an existing item was passed
             .onAppear {
-//                if let item {
+                if let item {
                     // asign its values to the local variables
                     name = item.name
-                // Now we have a View that shows all items, which means that now it also could have items without a category. Not ideal
-                if (item.category != nil) {
-                    category = item.category
+                    // Now we have a View that shows all items, which means that now it also could have items without a category.
+                    if (item.category != nil) {
+                        category = item.category
+                    }
+                    // check if category.name has a value
+                    if let itemCategoryExists = item.category {
+                        //                    category = searchCategoryByName(name: itemCategoryExists.name)
+                        category = searchCategoryByUUID(id: itemCategoryExists.id)
+                    }
+                    /// since we are fetching all categories in this view can we search for the category by name?
                 }
-                // check if category.name has a value
-                if let itemCategoryExists = item.category {
-//                    category = searchCategoryByName(name: itemCategoryExists.name)
-                    category = searchCategoryByUUID(id: itemCategoryExists.id)
-                }
-                /// since we are fetching all categories in this view can we search for the category by name?
             }
             // Add new category
             .sheet(isPresented: $showSheetAddNewCategory) {
                 let newCategory = Category(name: "", iconName: "")
-                CategoryEditor(category: newCategory, isNew: true)
+                CategoryEditor(category: newCategory)
             }
             #if os(macOS)
             .padding()
@@ -140,13 +135,12 @@ struct ItemEditor: View {
     }
 }
 
-#Preview("Add item") {
-    @Previewable var item = Item(name: "", category: Category(name: ""))
-    ItemEditor(item: item, isNew: true)
+#Preview("Add") {
+    ItemEditor()
 }
 
-#Preview("Edit item") {
+#Preview("Edit") {
     @Previewable var item = Item(name: "Test", category: Category(name: ""))
-    ItemEditor(item: item, isNew: false)
+    ItemEditor(item: item)
 }
 
