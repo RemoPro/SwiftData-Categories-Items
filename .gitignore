@@ -1,2 +1,3 @@
-## User settings
+# User settings
 *.xcodeproj/xcuserdata
+.DS_Store

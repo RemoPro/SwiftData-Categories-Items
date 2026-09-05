@@ -92,8 +92,8 @@ struct ItemsView: View {
             .sheet(item: $editItem) { item in
                 ItemEditor(item: item, isNew: false)
             }
-            /// check if deleteCategory exists to show its name
-            .alert("Delete \(deleteItem != nil ? deleteItem!.name : "Category")?", isPresented: $showAlertDeletingItem) {
+            /// check if deleteItem exists to show its name
+            .alert("Delete \(deleteItem != nil ? deleteItem!.name : "Item")?", isPresented: $showAlertDeletingItem) {
                 Button("Delete", systemImage: "trash", role: .destructive) {
                     modelContext.delete(deleteItem!)
                 }
