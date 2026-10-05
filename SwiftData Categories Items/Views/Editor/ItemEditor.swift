@@ -109,7 +109,7 @@ struct ItemEditor: View {
             /// check if an existing item was passed
             .onAppear {
                 if let item {
-                    // asign its values to the local variables
+                    // assign its values to the local variables
                     name = item.name
                     // Now we have a View that shows all items, which means that now it also could have items without a category.
                     if (item.category != nil) {
