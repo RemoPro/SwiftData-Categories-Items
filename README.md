@@ -28,3 +28,7 @@
 - As it uses SwiftData the categories and items are saved persistent
 - Model confirms now to CloudKit (iCloud sync)
 - App icon uses the icon file (OS 26+)
+- Xcode Previewes using sample data to see how it would look in the app
+    - works using SampleData.swift
+    - and sample data in both models (Item, Category)
+    - then each view needs the sample data on its preview
