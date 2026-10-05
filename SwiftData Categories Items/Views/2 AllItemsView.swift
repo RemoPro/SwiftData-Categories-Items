@@ -41,4 +41,5 @@ struct AllItemsView: View {
 
 #Preview {
     AllItemsView(selectedItem: .constant(nil))
+        .modelContainer(SampleData.shared.modelContainer)
 }

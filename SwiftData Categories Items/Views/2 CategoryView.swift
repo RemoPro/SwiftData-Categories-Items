@@ -35,17 +35,6 @@ struct CategoryView: View {
 }
 
 #Preview {
-    @Previewable var category = Category(
-        name: "Category",
-        iconName: "folder",
-        items: [
-            Item(
-                name: "Item",
-                category: nil
-            )
-        ]
-    )
-    
-    CategoryView(category: category, selectedItem: .constant(nil))
+    CategoryView(category: SampleData.shared.category, selectedItem: .constant(nil))
 }
 

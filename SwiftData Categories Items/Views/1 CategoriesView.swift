@@ -101,4 +101,5 @@ struct CategoriesView: View {
 
 #Preview {
     CategoriesView(selectedCategory: .constant(nil))
+        .modelContainer(SampleData.shared.modelContainer)
 }

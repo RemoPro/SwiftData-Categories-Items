@@ -23,4 +23,10 @@ final class Item {
         self.name = name
         self.category = category
     }
+    
+    // sample data
+    static let sampleData = [
+        Item(name: "Item 1", category: nil),
+        Item(name: "Item 2", category: nil)
+    ]
 }

@@ -100,17 +100,6 @@ struct ItemsView: View {
 }
 
 #Preview {
-    @Previewable var category = Category(
-        name: "Category",
-        iconName: "folder",
-        items: [
-            Item(
-                name: "Item",
-                category: nil
-            )
-        ]
-    )
-    
-    ItemsView(items: category.items!, title: "Category", categoryId: category.id)
+    ItemsView(items: SampleData.shared.category.items!, title: "Category", categoryId: SampleData.shared.category.id)
 }
 

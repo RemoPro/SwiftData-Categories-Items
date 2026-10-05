@@ -27,4 +27,17 @@ final class Category {
         self.iconName = iconName
         self.items = items
     }
+    
+    // sample data
+    static let sampleData = [
+        Category(
+            name: "Category 1",
+            iconName: "folder"
+        ),
+        Category(
+            name: "Category 2",
+            iconName: "book"
+        )
+
+    ]
 }

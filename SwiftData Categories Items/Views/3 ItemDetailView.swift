@@ -24,7 +24,5 @@ struct ItemDetailView: View {
 }
 
 #Preview {
-    @Previewable var item = Item(name: "Test", category: nil)
-    
-    ItemDetailView(item: item)
+    ItemDetailView(item: SampleData.shared.item)
 }
