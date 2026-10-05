@@ -140,7 +140,6 @@ struct ItemEditor: View {
 }
 
 #Preview("Edit") {
-    @Previewable var item = Item(name: "Test", category: Category(name: ""))
-    ItemEditor(item: item)
+    ItemEditor(item: SampleData.shared.item)
 }
 

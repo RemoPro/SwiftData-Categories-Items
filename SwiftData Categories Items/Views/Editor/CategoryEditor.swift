@@ -89,6 +89,5 @@ struct CategoryEditor: View {
 }
 
 #Preview("Edit category") {
-    @Previewable var category = Category(name: "Test")
-    CategoryEditor(category: category)
+    CategoryEditor(category: SampleData.shared.category)
 }
