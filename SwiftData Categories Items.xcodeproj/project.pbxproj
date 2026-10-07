@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		6E33CAA530764302003EA3E8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6EB310302F7817D400FF9021 /* SwiftData Categories Items.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftData Categories Items.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +33,7 @@
 		6EB310272F7817D400FF9021 = {
 			isa = PBXGroup;
 			children = (
+				6E33CAA530764302003EA3E8 /* README.md */,
 				6EB310322F7817D400FF9021 /* SwiftData Categories Items */,
 				6EB310312F7817D400FF9021 /* Products */,
 			);
